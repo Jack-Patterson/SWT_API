@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\t00217640\\Desktop\\SWT_API\\REST_JP\\REST_JP.csproj": {}
+    "C:\\Users\\t00217640\\Desktop\\SWTAPI\\REST_JP\\REST_JP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\t00217640\\Desktop\\SWT_API\\REST_JP\\REST_JP.csproj": {
+    "C:\\Users\\t00217640\\Desktop\\SWTAPI\\REST_JP\\REST_JP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\t00217640\\Desktop\\SWT_API\\REST_JP\\REST_JP.csproj",
+        "projectUniqueName": "C:\\Users\\t00217640\\Desktop\\SWTAPI\\REST_JP\\REST_JP.csproj",
         "projectName": "REST_JP",
-        "projectPath": "C:\\Users\\t00217640\\Desktop\\SWT_API\\REST_JP\\REST_JP.csproj",
+        "projectPath": "C:\\Users\\t00217640\\Desktop\\SWTAPI\\REST_JP\\REST_JP.csproj",
         "packagesPath": "C:\\Users\\t00217640\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\t00217640\\Desktop\\SWT_API\\REST_JP\\obj\\",
+        "outputPath": "C:\\Users\\t00217640\\Desktop\\SWTAPI\\REST_JP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
