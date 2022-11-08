@@ -9,19 +9,19 @@ namespace REST_JP.Data
     public class Account
     {
         [Key]
-        public int Id { get; set; }
+        public int AccountId { get; set; }
         public string Name { get; set; }
         public string Iban { get; set; }
         public string Pac { get; set; }
         public float Balance { get; set; }
 
-        public Account(int accountId, string name, string iban, string pac, float balance)
+        public Account(int AccountId, string Name, string Iban, string Pac, float Balance)
         {
-            Id = accountId;
-            Name = name;
-            Iban = iban;
-            Pac = pac;
-            Balance = balance;
+            this.AccountId = AccountId;
+            this.Name = Name;
+            this.Iban = Iban;
+            this.Pac = Pac;
+            this.Balance = Balance;
         }
 
     }

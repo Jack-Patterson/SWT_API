@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace REST_JP.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("banksys/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -20,12 +20,12 @@ namespace REST_JP.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet("GetUsers")]
-        public IActionResult GetUsers()
+        [HttpGet("GetAllUsers")]
+        public IActionResult GetAllUsers()
         {
             try
             {
-                var users = _dbContext.userRequests.ToList();
+                var users = _dbContext.accounts.ToList();
                 if (users.Count == 0)
                 {
                     return StatusCode(404, "No user has been found.");
@@ -39,12 +39,143 @@ namespace REST_JP.Controllers
             }
         }
 
+        [HttpGet("GetUserById/{Id}")]
+        public IActionResult GetUserById([FromRoute] int Id)
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+
+                var user = FilterAccount(users, Id);
+                if (user == null)
+                {
+                    return StatusCode(404, "No user has been found.");
+                }
+
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
+        [HttpGet("GetUserByName/{Name}")]
+        public IActionResult GetUserByName([FromRoute] string name)
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+                
+                var user = FilterAccount(users, name);
+                if (user == null)
+                {
+                    return StatusCode(404, "No user has been found.");
+                }
+
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
+        [HttpGet("GetNameById/{Id}")]
+        public IActionResult GetNameById([FromRoute] int Id)
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+
+                var user = FilterAccount(users, Id);
+                if (user == null)
+                {
+                    return StatusCode(404, "No user has been found.");
+                }
+
+                return Ok(user.Name);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
+        [HttpGet("GetPacById/{Id}")]
+        public IActionResult GetPacById([FromRoute] int id)
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+
+                var user = FilterAccount(users, id);
+                if (user == null)
+                {
+                    return StatusCode(404, "No user has been found.");
+                }
+
+                return Ok(user.Pac);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
+        [HttpGet("GetBalanceById/{Id}")]
+        public IActionResult GetBalanceById([FromRoute] int id)
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+
+                var user = FilterAccount(users, id);
+                if (user == null)
+                {
+                    return StatusCode(404, "No user has been found.");
+                }
+
+                return Ok(user.Balance);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
+        [HttpGet("GetNextID")]
+        public IActionResult GetNextID()
+        {
+            try
+            {
+                var users = _dbContext.accounts.ToList();
+
+                if (users.Count == 0)
+                {
+                    return Ok(0);
+                }
+
+                var latestId = 0;
+                foreach (Account a in users)
+                {
+                    if (a.AccountId > latestId) latestId = a.AccountId;
+                }
+
+                return Ok(latestId+1);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
+
         [HttpPost("CreateUser")]
         public IActionResult CreateUser([FromBody] Account request)
         {
             try
             {
-                _dbContext.userRequests.Add(request);
+                _dbContext.accounts.Add(request);
                 _dbContext.SaveChanges();
             }
             catch (Exception e)
@@ -52,16 +183,16 @@ namespace REST_JP.Controllers
                 return StatusCode(500, $"An error has occurred.\n {e}");
             }
 
-            var users = _dbContext.userRequests.ToList();
+            var users = _dbContext.accounts.ToList();
             return Ok(users);
         }
-
+        
         [HttpPut("UpdateUser")]
         public IActionResult UpdateUser([FromBody] Account request)
         {
             try
             {
-                var user = _dbContext.userRequests.AsNoTracking().FirstOrDefault(x => x.Id == request.Id);
+                var user = _dbContext.accounts.AsNoTracking().FirstOrDefault(x => x.AccountId == request.AccountId);
 
                 if (user == null)
                 {
@@ -78,31 +209,46 @@ namespace REST_JP.Controllers
                 return StatusCode(500, $"An error has occurred.\n {e}");
             }
 
-            var users = _dbContext.userRequests.ToList();
+            var users = _dbContext.accounts.ToList();
             return Ok(users);
         }
 
-        [HttpDelete("DeleteUser/{Id}")]
-        public IActionResult DeleteUser([FromRoute] int Id)
+        private static Account FilterAccount(List<Account> accounts, int id)
         {
-            try
+            foreach(Account a in accounts)
             {
-                var user = _dbContext.userRequests.AsNoTracking().FirstOrDefault(x => x.Id == Id);
-                if (user == null)
+                if (a.AccountId == id)
                 {
-                    return StatusCode(404, "No user has been found.");
+                    return a;
                 }
-
-                _dbContext.Entry(user).State = EntityState.Deleted;
-                _dbContext.SaveChanges();
             }
-            catch (Exception e)
+            return null;
+        }
+
+        private static Account FilterAccount(List<Account> accounts, string name)
+        {
+            foreach (Account a in accounts)
             {
-                return StatusCode(500, $"An error has occurred.\n {e}");
-            }
+                string nameFixed = "";
+                foreach (char c in name)
+                {
+                    if (c == '_')
+                    {
+                        nameFixed += ' ';
 
-            var users = _dbContext.userRequests.ToList();
-            return Ok(users);
+                    }
+                    else
+                    {
+                        nameFixed += c;
+                    }
+                }
+                Console.WriteLine(nameFixed);
+                if (a.Name.Equals(nameFixed))
+                {
+                    return a;
+                }
+            }
+            return null;
         }
     }
 }

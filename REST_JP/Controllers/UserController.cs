@@ -25,7 +25,7 @@ namespace REST_JP.Controllers
         {
             try
             {
-                var users = _dbContext.userRequests.ToList();
+                var users = _dbContext.accounts.ToList();
                 if (users.Count == 0)
                 {
                     return StatusCode(404, "No user has been found.");
@@ -87,7 +87,7 @@ namespace REST_JP.Controllers
         {
             try
             {
-                var user = _dbContext.userRequests.AsNoTracking().FirstOrDefault(x => x.Id == Id);
+                var user = _dbContext.accounts.AsNoTracking().FirstOrDefault(x => x.AccountId == Id);
                 if (user == null)
                 {
                     return StatusCode(404, "No user has been found.");
@@ -101,7 +101,7 @@ namespace REST_JP.Controllers
                 return StatusCode(500, $"An error has occurred.\n {e}");
             }
 
-            var users = _dbContext.userRequests.ToList();
+            var users = _dbContext.accounts.ToList();
             return Ok(users);
         }
     }

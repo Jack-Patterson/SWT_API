@@ -13,7 +13,7 @@ namespace REST_JP.Data
 
         }
 
-        public DbSet<Account> userRequests { get; set; }
-        public DbSet<Transaction> transactionRequests { get; set; }
+        public DbSet<Account> accounts { get; set; }
+        public DbSet<Transaction> transactions { get; set; }
     }
 }
