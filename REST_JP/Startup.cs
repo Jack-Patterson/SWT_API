@@ -33,7 +33,7 @@ namespace REST_JP
         {
             services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             var connStr = Configuration.GetConnectionString("DefaultConection");
             services.AddDbContext<APIDbContext>(options => options.UseMySQL(connStr));

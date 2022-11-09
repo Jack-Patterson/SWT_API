@@ -12,10 +12,10 @@ namespace REST_JP.Data
         public int AccountId { get; set; }
         public string Name { get; set; }
         public string Iban { get; set; }
-        public string Pac { get; set; }
+        public int Pac { get; set; }
         public float Balance { get; set; }
 
-        public Account(int AccountId, string Name, string Iban, string Pac, float Balance)
+        public Account(int AccountId, string Name, string Iban, int Pac, float Balance)
         {
             this.AccountId = AccountId;
             this.Name = Name;

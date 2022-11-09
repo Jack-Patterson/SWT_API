@@ -49,7 +49,7 @@ namespace REST_JP.Controllers
         }
 
         [HttpPost("CreateTransaction")]
-        public IActionResult CreateTransaction([FromBody] Transaction request)
+        public IActionResult CreateTransaction(Transaction request)
         {
             try
             {
@@ -65,6 +65,30 @@ namespace REST_JP.Controllers
             return Ok(transactions);
         }
 
-        
+        [HttpGet("GetNextID")]
+        public IActionResult GetNextID()
+        {
+            try
+            {
+                var transactions = _dbContext.transactions.ToList();
+
+                if (transactions.Count == 0)
+                {
+                    return Ok(0);
+                }
+
+                var latestId = 0;
+                foreach (Transaction t in transactions)
+                {
+                    if (t.TransId > latestId) latestId = t.TransId;
+                }
+
+                return Ok(latestId + 1);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, $"An error has occurred.\n {e}");
+            }
+        }
     }
 }

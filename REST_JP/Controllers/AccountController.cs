@@ -171,7 +171,7 @@ namespace REST_JP.Controllers
         }
 
         [HttpPost("CreateUser")]
-        public IActionResult CreateUser([FromBody] Account request)
+        public IActionResult CreateUser(/*[FromBody]*/ Account request)
         {
             try
             {

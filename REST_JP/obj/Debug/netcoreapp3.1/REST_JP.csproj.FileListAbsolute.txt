@@ -220,3 +220,6 @@ D:\Personal Projects\SWT_API\REST_JP\obj\Debug\netcoreapp3.1\REST_JP.csproj.Copy
 D:\Personal Projects\SWT_API\REST_JP\obj\Debug\netcoreapp3.1\REST_JP.dll
 D:\Personal Projects\SWT_API\REST_JP\obj\Debug\netcoreapp3.1\REST_JP.pdb
 D:\Personal Projects\SWT_API\REST_JP\obj\Debug\netcoreapp3.1\REST_JP.genruntimeconfig.cache
+D:\Personal Projects\SWT_API\REST_JP\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\Personal Projects\SWT_API\REST_JP\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Personal Projects\SWT_API\REST_JP\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
